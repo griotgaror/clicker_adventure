@@ -1,0 +1,46 @@
+
+.titlebar {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.currency_box {
+    background:black;
+    height: 90%;
+    width: 100%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.currency_icon, .currency_states {
+    height: 90%;
+    width: 100px;
+}
+.currency_states {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.currency_text {
+    color: white;
+    font-size: 18px;
+}
+
+@media screen and (min-width: 500px) and (min-height: 900px) {
+    .titlebar {
+        flex-direction: column;
+    }
+    .currency_icon {
+        width: 120px;
+    }
+    .currency_text {
+        font-size: 30px;
+    }
+}

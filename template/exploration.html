@@ -1,0 +1,13 @@
+{% extends "index.html" %}
+
+{% block main_content_box %}
+<link rel="stylesheet" href="/static/style/exploration.css">
+
+    {% for enemy in enemys %}
+        <form class="enemy_box"action="fight" method="post">
+            <img class="enemy_icon" src= {{ enemy.img }}>
+            <button class="enemy_button" name= {{ enemy.name }}></button>
+        </form>
+    {% endfor %} 
+
+{% endblock main_content_box %}

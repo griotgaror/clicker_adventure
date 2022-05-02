@@ -1,0 +1,65 @@
+
+.main_content_box {
+    position: relative;
+}
+.fight_box {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.lifebar_box {
+    background: transparent;
+    height: 50px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;  
+}
+.lifebar, .lifebar_value {
+    background: rgb(200, 0, 0);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border-radius: 10px;
+    z-index: 1;
+}
+.lifebar_value {
+    background: transparent;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    z-index: 2;
+}
+.enemy_box {
+    width: 100%;
+    flex-grow: 1;
+    position: relative;
+}
+.fight_background, .enemy {
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+.enemy {
+    z-index: 2;
+    height: 150px;
+    width: 150px;
+    left: 50%; top: 55%;
+    transform: translate(-50%, -55%);
+}
+
+@media screen and (min-width: 500px) and (min-height: 900px) {
+    .lifebar_box {
+        height: 85px;
+    }
+    .lifebar_value {
+        font-size: 30px;
+    }
+    .enemy {
+        height: 50%;
+        width: 50%;
+    }
+}

@@ -1,0 +1,39 @@
+@import url("/static/style/color.css");
+
+.navigation_form {
+    background: var(--lightblack);
+    height: 180px;
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+}
+.navigation_text {
+    text-align: center;
+    color: white;
+    font-size: 18px;
+}
+.navigation_box {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+.navigation_icon, .navigation_button {
+    background:transparent;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+    border-radius: 10px;
+}
+.navigation_icon {
+    z-index: 1;
+}
+
+/* mobile */
+@media screen and (min-width: 500px) and (min-height: 900px) {
+    .navigation_form {
+        height: 280px;
+        width: 250px
+    }
+}
