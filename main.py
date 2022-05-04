@@ -1,6 +1,7 @@
+from ctypes import cast
 from flask import Flask, redirect, render_template, url_for, request;
 import json
-
+import sqlite3
 
 app  = Flask(__name__, static_folder= "static", template_folder="template");
 host = "0.0.0.0";
@@ -50,12 +51,19 @@ def get_attack():
 
 @app.route("/currency", methods=["POST", "GET"])
 def currency():
+    gold = game_data["gold"];
+
     if request.method == "POST":
-        damage = request.form.getlist("damage");
-        gold = game_data["gold"];
-        print(gold, damage);
+        new_gold = request.form.getlist("new_gold");
+
+        print(gold);
 
         return "data received";
+
+    if request.method == "GET":
+        
+        return {"gold": gold};
+
 
 def get_navigation(route): 
     for data in game_data["navigation"]:
@@ -70,7 +78,6 @@ def get_navigation(route):
                 });
 
             return navigation;
-
 
 if __name__ == "__main__":
     app.run(host, port, debug=True);
