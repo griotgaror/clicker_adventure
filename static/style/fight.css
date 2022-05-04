@@ -16,7 +16,7 @@
     display: flex;
     justify-content: center;  
 }
-.lifebar, .lifebar_value {
+.lifebar {
     background: rgb(200, 0, 0);
     height: 100%;
     width: 100%;

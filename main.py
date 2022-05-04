@@ -1,42 +1,46 @@
-from distutils.spawn import spawn
-from flask import Flask, redirect, render_template, request_tearing_down, url_for, request
+from flask import Flask, redirect, render_template, url_for, request;
+import json
 
 
-app = Flask(__name__, template_folder= "template");
+app  = Flask(__name__, static_folder= "static", template_folder="template");
 host = "0.0.0.0";
 port = 5050;
 
-#########################Index###########################
+data_file = open("data.json");
+game_data = json.load(data_file);
+
 @app.route("/")
 def index():
     return redirect(url_for("home"));
 
-#########################Home###########################
 @app.route("/home", methods=["POST", "GET"])
 def home():
-    return render_template("home.html", navigations=get_navigations("home"));
+    return render_template("home.html", navigations=get_navigation("home"), gold=game_data["gold"]);
 
-#########################Exploration####################
 @app.route("/exploration", methods=["POST", "GET"])
 def exploration():
-    return render_template("exploration.html", navigations=get_navigations("exploration"), enemys=enemys)
+    Enemys = [];
 
-#########################Fight###########################
+    for enemy in game_data["enemys"]:
+        Enemys.append({
+            "name": enemy["name"],
+            "img": "static/Assets/IconsEnemy/" + enemy["img"],
+        });
+
+    return render_template("exploration.html", navigations=get_navigation("exploration"), enemys=Enemys, gold=game_data["gold"])
+
 @app.route("/fight", methods=["POST", "GET"])
 def fight():
-    enemy_img = False;
-    enemy_hp = False;
-    
     if request.method == "POST":
-        data = request.form;
-        print(request.form);
-
-        for enemy in enemys:
+        for enemy in game_data["enemys"]:
             if request.form.getlist(enemy["name"]):
-                enemy_img = enemy["img"];
+                enemy_img = "static/Assets/IconsEnemy/" + enemy["img"];
                 enemy_hp = enemy["hp"];
 
-    return render_template("fight.html", navigations=get_navigations("fight"), enemy_img=enemy_img, enemy_hp=enemy_hp);
+                return render_template("fight.html", navigations=get_navigation("fight"), gold=game_data["gold"], enemy_hp=enemy_hp, enemy_img=enemy_img);
+    
+    if request.method == "GET":
+        return redirect(url_for("exploration"));
 
 @app.route("/get_attack", methods=["GET"])
 def get_attack():
@@ -44,36 +48,29 @@ def get_attack():
         test_attack = "1";
         return test_attack;
 
+@app.route("/currency", methods=["POST", "GET"])
+def currency():
+    if request.method == "POST":
+        damage = request.form.getlist("damage");
+        gold = game_data["gold"];
+        print(gold, damage);
 
-#########################Variablen#######################
-navigation_icons = "/static/assets/icons_navigation/";
-enemy_icons = "static/assets/icons_enemy/";
+        return "data received";
 
-enemys = [
-        {"name": "Enemy_1", "img": enemy_icons + "enemy_1.png", "hp": 500},
-        {"name": "Goblin", "img": enemy_icons + "goblin.png", "hp": 1000},
-        {"name": "Enemy_3", "img": enemy_icons + "enemy_3.png", "hp": 1800},
-        {"name": "Black_Crow", "img": enemy_icons + "black_crow.png", "hp": 3000},
-        {"name": "Big_Bear", "img": enemy_icons + "big_bear.png", "hp": 4500},
-        {"name": "Enemy_6", "img": enemy_icons + "enemy_6.png", "hp": 6000},
-    ];    
+def get_navigation(route): 
+    for data in game_data["navigation"]:
+        if data["name"] == route:
+            
+            navigation = [];
 
-##################Functions##############################
-def get_navigations(path):
-    home = {"name": "home", "img": navigation_icons + "home.png"};
-    exploration = {"name": "exploration", "img": navigation_icons + "exploration.png"};     
-    merchant = {"name": "merchant", "img": navigation_icons + "merchant.png"};
-    collection = {"name": "collection", "img": navigation_icons + "collection.png"};
-    archivments = {"name": "archivments", "img": navigation_icons + "archivments.png"}
+            for path in data["path"]:
+                navigation.append({
+                    "name": path,
+                    "img": game_data["navigations_icons"]  + path + ".png",
+                });
 
-    navigation = {
-        "home": [exploration, merchant, collection, archivments],
-        "exploration": [home, merchant, collection],
-        "fight": [home, exploration, merchant],
-    };
-
-    return navigation[path];
+            return navigation;
 
 
 if __name__ == "__main__":
-    app.run(host, port, debug = True);
+    app.run(host, port, debug=True);

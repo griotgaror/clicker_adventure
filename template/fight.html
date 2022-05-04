@@ -2,15 +2,16 @@
 
 {% block main_content_box %}
 <link rel="stylesheet" href="/static/style/fight.css">
+
 <div class="fight_box">
     <div class="lifebar_box">
         <div class="lifebar"></div>
         {% if enemy_hp %}
-        <h1 class="lifebar_value"> {{ enemy_hp }} </h1>
+            <h1 class="lifebar_value"> {{ enemy_hp }} </h1>
         {% endif %}
     </div>
     <div class="enemy_box">
-        <img class="fight_background" src="/static/assets/battelground_1.png" alt="">
+        <img class="fight_background" src="/static/Assets/battelground_1.png" alt="">
 
         {% if enemy_img %}
             <img class="enemy" src={{ enemy_img }} alt="image_not_found">
@@ -18,16 +19,5 @@
 
     </div>
 </div>
-
-<script>
-    $(".enemy").click(function() {
-        var lifebar = $(".lifebar");
-        var lifebar_value = $(".lifebar_value");
-
-        $.get("get_attack", {}, function(data, status) {
-            console.log(status, data);
-        });
-    });
-</script>
 
 {% endblock main_content_box %}

@@ -1,0 +1,26 @@
+
+
+{
+    "navigations_icons": "/static/Assets/IconsNavigation/",
+    "enemys_icons": "static/Assets/IconsEnemy/",
+
+    "gold": "0",
+    "signs_of_honor": "0",
+
+    "navigation": [
+        {"name": "home", "path": ["exploration", "merchant", "collection"]},
+        {"name": "exploration", "path": ["home", "merchant", "collection"]},
+        {"name": "merchant", "path": ["home", "exploration", "collection"]},
+        {"name": "collection", "path": ["home", "exploration", "merchant"]},
+        {"name": "fight", "path": ["exploration", "merchant", "archivments"]}
+    ],
+
+    "enemys": [
+        {"name": "Enemy_1", "img": "enemy_1.png", "hp": 10},
+        {"name": "Goblin", "img": "goblin.png", "hp": 1000},
+        {"name": "Enemy_3", "img": "enemy_3.png", "hp": 1800},
+        {"name": "Black_Crow", "img": "black_crow.png", "hp": 3000},
+        {"name": "Big_Bear", "img": "big_bear.png", "hp": 4500},
+        {"name": "Enemy_6", "img": "enemy_6.png", "hp": 6000}
+    ]
+}
